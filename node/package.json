@@ -1,0 +1,11 @@
+{
+  "name": "@bookable/event-logger",
+  "version": "0.1.0",
+  "description": "Internal Pub/Sub \u2192 BigQuery event logger for Bookable services (Node.js)",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@google-cloud/pubsub": "^4.0.0",
+    "uuid": "^9.0.0"
+  }
+}

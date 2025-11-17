@@ -1,0 +1,21 @@
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Bookable.EventLogger</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Bookable</Authors>
+    <Description>Internal Pub/Sub → BigQuery event logger for Bookable services (.NET)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Cloud.PubSub.V1" Version="3.12.0" />
+    <PackageReference Include="Google.Api.Gax.Grpc" Version="4.5.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
+  </ItemGroup>
+
+</Project>

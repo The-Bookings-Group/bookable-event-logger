@@ -1,0 +1,19 @@
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bookable-event-logger"
+version = "0.1.0"
+description = "Internal Pub/Sub → BigQuery event logger for Bookable services (Python)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "google-cloud-pubsub>=2.21.0",
+    "google-auth>=2.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bookable_event_logger*"]
