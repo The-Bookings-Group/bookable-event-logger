@@ -209,23 +209,10 @@ class EventLogger:
 class NoOpEventLogger:
     """No-op event logger that silently ignores all logging calls."""
 
-    def log_event(self, **kwargs):
-        return {}, None
-
-    def log(self, *args, **kwargs):
-        return {}, None
-
-    def debug(self, **kwargs):
-        return {}, None
-
-    def info(self, **kwargs):
-        return {}, None
-
-    def warning(self, **kwargs):
-        return {}, None
-
-    def error(self, **kwargs):
-        return {}, None
+    def __getattr__(self, name):
+        def _noop(*args, **kwargs):
+            return {}, None
+        return _noop
 
 
 _event_logger: Union[EventLogger, NoOpEventLogger, None] = None
