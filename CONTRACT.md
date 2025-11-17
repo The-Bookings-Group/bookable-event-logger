@@ -1,4 +1,3 @@
-
 # 📘 Bookable Event Logging Contract
 
 This document defines the **standard event format** used across all Bookable services.
@@ -94,13 +93,13 @@ Every event must conform to this schema:
 
 All SDKs use the same environment variables:
 
-| Variable            | Purpose                                             |
-|---------------------|-----------------------------------------------------|
-| `LOG_GCP_PROJECT`   | GCP project ID (`bookings-api-staging`, `...-prod`) |
-| `LOG_TOPIC`         | Pub/Sub topic name (usually `events`)              |
-| `LOG_ENVIRONMENT`   | Environment (`staging`, `production`, `dev`)       |
-| `LOG_SERVICE_NAME`  | Name of the emitting service                       |
-| `LOG_GCP_CREDENTIALS` | Path to service account JSON (local dev only)    |
+| Variable              | Purpose                                             |
+|-----------------------|-----------------------------------------------------|
+| `LOG_GCP_PROJECT`     | GCP project ID (`bookings-api-staging`, `...-prod`) |
+| `LOG_TOPIC`           | Pub/Sub topic name (usually `events`)              |
+| `LOG_ENVIRONMENT`     | Environment (`staging`, `production`, `dev`)       |
+| `LOG_SERVICE_NAME`    | Name of the emitting service                       |
+| `LOG_GCP_CREDENTIALS` | Path to service account JSON (local dev only)      |
 
 In production, services should use attached service accounts / workload
 identity instead of JSON key files.
@@ -115,17 +114,17 @@ identity instead of JSON key files.
 
 Recommended schema:
 
-| Field         | Type      | Mode     |
-|---------------|-----------|----------|
-| event_id      | STRING    | REQUIRED |
-| correlation_id| STRING    | NULLABLE |
-| service       | STRING    | REQUIRED |
-| event_type    | STRING    | REQUIRED |
-| level         | STRING    | REQUIRED |
-| environment   | STRING    | REQUIRED |
-| created_at    | TIMESTAMP | REQUIRED |
-| actor         | STRING    | NULLABLE |
-| data          | STRING    | NULLABLE |
+| Field          | Type      | Mode     |
+|----------------|-----------|----------|
+| event_id       | STRING    | REQUIRED |
+| correlation_id | STRING    | NULLABLE |
+| service        | STRING    | REQUIRED |
+| event_type     | STRING    | REQUIRED |
+| level          | STRING    | REQUIRED |
+| environment    | STRING    | REQUIRED |
+| created_at     | TIMESTAMP | REQUIRED |
+| actor          | STRING    | NULLABLE |
+| data           | STRING    | NULLABLE |
 
 BigQuery subscription configuration:
 

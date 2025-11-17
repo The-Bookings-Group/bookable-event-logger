@@ -1,4 +1,3 @@
-
 # Bookable Event Logger
 
 Cross-language event logging SDKs for Bookable services:
@@ -24,3 +23,4 @@ Each SDK:
 - Reads config from the same environment variables
 - Produces identical event envelopes
 - Handles `actor` and `data` as JSON-encoded strings
+- Exposes convenience methods: `debug`, `info`, `warning`, `error`, and generic `log`

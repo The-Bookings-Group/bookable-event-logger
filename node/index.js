@@ -1,4 +1,3 @@
-
 const { PubSub } = require("@google-cloud/pubsub");
 const { v4: uuidv4 } = require("uuid");
 
@@ -72,6 +71,17 @@ class EventLogger {
     }
   }
 
+  log(level, { eventType, correlationId, data, actor, service } = {}) {
+    return this.logEvent({
+      eventType,
+      level,
+      data: data || {},
+      correlationId,
+      actor,
+      service,
+    });
+  }
+
   debug(params) {
     return this.logEvent({ ...params, level: "debug" });
   }
@@ -91,6 +101,7 @@ class EventLogger {
 
 class NoOpEventLogger {
   async logEvent() {}
+  async log() {}
   async debug() {}
   async info() {}
   async warning() {}

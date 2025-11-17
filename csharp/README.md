@@ -1,4 +1,3 @@
-
 # Bookable.EventLogger (.NET)
 
 Internal .NET SDK for publishing Bookable events to Pub/Sub, following the
@@ -23,6 +22,16 @@ await logger.InfoAsync(
         ["kind"] = "internal_service",
         ["source"] = "scheduler"
     }
+);
+
+await logger.LogAsync(
+    level: "warning",
+    eventType: "email.sync.batch.slow",
+    data: new Dictionary<string, object>
+    {
+        ["duration_ms"] = 120000
+    },
+    correlationId: "req-123"
 );
 ```
 

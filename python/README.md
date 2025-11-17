@@ -1,4 +1,3 @@
-
 # bookable-event-logger (Python)
 
 Internal Python SDK for publishing Bookable events to Pub/Sub, following the
@@ -29,6 +28,13 @@ logger.info(
     correlation_id="req-123",
     data={"accounts_total": 12, "sync_type": "cron"},
     actor={"kind": "internal_service", "source": "scheduler"},
+)
+
+logger.log(
+    "warning",
+    event_type="email.sync.batch.slow",
+    correlation_id="req-123",
+    data={"duration_ms": 120000},
 )
 ```
 

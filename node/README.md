@@ -1,4 +1,3 @@
-
 # @bookable/event-logger (Node.js)
 
 Internal Node.js SDK for publishing Bookable events to Pub/Sub, following the
@@ -29,6 +28,12 @@ logger.info({
   correlationId: "req-123",
   data: { accounts_total: 12, sync_type: "cron" },
   actor: { kind: "internal_service", source: "scheduler" },
+});
+
+logger.log("warning", {
+  eventType: "email.sync.batch.slow",
+  correlationId: "req-123",
+  data: { duration_ms: 120000 },
 });
 ```
 

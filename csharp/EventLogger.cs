@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -111,6 +110,17 @@ namespace Bookable.EventLogger
             }
         }
 
+        public Task<(Dictionary<string, object> Event, string? MessageId)> LogAsync(
+            string level,
+            string eventType,
+            IDictionary<string, object>? data = null,
+            string? correlationId = null,
+            IDictionary<string, object>? actor = null,
+            string? service = null)
+        {
+            return LogEventAsync(eventType, level, data, service, correlationId, actor);
+        }
+
         public Task<(Dictionary<string, object> Event, string? MessageId)> DebugAsync(
             string eventType,
             IDictionary<string, object>? data = null,
@@ -161,6 +171,15 @@ namespace Bookable.EventLogger
             string? service = null,
             string? correlationId = null,
             IDictionary<string, object>? actor = null)
+            => Task.CompletedTask;
+
+        public Task LogAsync(
+            string level,
+            string eventType,
+            IDictionary<string, object>? data = null,
+            string? correlationId = null,
+            IDictionary<string, object>? actor = null,
+            string? service = null)
             => Task.CompletedTask;
 
         public Task DebugAsync(string eventType, IDictionary<string, object>? data = null,

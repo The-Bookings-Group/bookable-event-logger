@@ -1,4 +1,3 @@
-
 import os
 import json
 import uuid
@@ -119,6 +118,25 @@ class EventLogger:
             logger.error("Failed to publish event to Pub/Sub: %s", e)
             return event, None
 
+    def log(
+        self,
+        level: str,
+        event_type: str,
+        correlation_id: Optional[str] = None,
+        data: Optional[Dict[str, Any]] = None,
+        actor: Optional[Dict[str, Any]] = None,
+        service: Optional[str] = None,
+    ):
+        """Generic dynamic-level log method."""
+        return self.log_event(
+            event_type=event_type,
+            level=level,
+            data=data or {},
+            correlation_id=correlation_id,
+            actor=actor,
+            service=service,
+        )
+
     def debug(
         self,
         event_type: str,
@@ -192,6 +210,9 @@ class NoOpEventLogger:
     """No-op event logger that silently ignores all logging calls."""
 
     def log_event(self, **kwargs):
+        return {}, None
+
+    def log(self, *args, **kwargs):
         return {}, None
 
     def debug(self, **kwargs):
