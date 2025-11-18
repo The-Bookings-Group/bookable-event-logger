@@ -26,19 +26,18 @@ class EventLogger:
         service_name: Optional[str] = None,
         credentials_path: Optional[str] = None,
     ):
-        # Resolve config
         self.project_id = project_id or os.getenv("LOG_GCP_PROJECT")
         self.topic_name = topic_name or os.getenv("LOG_TOPIC", "events")
         self.environment = environment or os.getenv("LOG_ENVIRONMENT")
         self.service_name = service_name or os.getenv("LOG_SERVICE_NAME")
         self.credentials_path = credentials_path or os.getenv("LOG_GCP_CREDENTIALS")
 
+        # LOG_GCP_CREDENTIALS is now OPTIONAL
         required = {
             "LOG_GCP_PROJECT / project_id": self.project_id,
             "LOG_TOPIC / topic_name": self.topic_name,
             "LOG_ENVIRONMENT / environment": self.environment,
             "LOG_SERVICE_NAME / service_name": self.service_name,
-            "LOG_GCP_CREDENTIALS / credentials_path": self.credentials_path,
         }
         missing = [name for name, value in required.items() if not value]
         if missing:
@@ -46,10 +45,16 @@ class EventLogger:
                 "Missing required config for EventLogger: " + ", ".join(missing)
             )
 
-        credentials = service_account.Credentials.from_service_account_file(
-            self.credentials_path
-        )
-        self.publisher = pubsub_v1.PublisherClient(credentials=credentials)
+        # Local dev: use key file if provided
+        if self.credentials_path:
+            credentials = service_account.Credentials.from_service_account_file(
+                self.credentials_path
+            )
+            self.publisher = pubsub_v1.PublisherClient(credentials=credentials)
+        else:
+            # GCP: rely on attached service account / ADC
+            self.publisher = pubsub_v1.PublisherClient()
+
         self.topic_path = self.publisher.topic_path(self.project_id, self.topic_name)
 
         logger.debug(
